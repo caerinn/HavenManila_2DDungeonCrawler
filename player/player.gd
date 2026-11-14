@@ -107,9 +107,11 @@ const SPAWN_SQUASH     = 0.22   # the pop-in at level start
 
 
 func _ready():
+	var size := get_viewport_rect().size
+	
 	add_to_group("player")
-	if camera:
-		base_zoom = camera.zoom   # remember the resting zoom so punches settle back
+	#if camera:
+	#	base_zoom = camera.zoom   # remember the resting zoom so punches settle back
 	base_sprite_y = animated_sprite.position.y
 	_squash_impulse(SPAWN_SQUASH)  # a little pop-in so the level starts with energy
 
@@ -118,7 +120,7 @@ func _physics_process(delta):
 	if is_dead:
 		return
 
-	_apply_gravity(delta)
+	#_apply_gravity(delta)
 	_handle_jump(delta)
 	_handle_horizontal(delta)
 	_update_animation()
@@ -196,13 +198,11 @@ func _handle_jump(delta):
 	# A buffered press + coyote grace = a ground jump.
 	if jump_buffer_timer > 0.0 and coyote_timer > 0.0:
 		_do_jump(JUMP_VELOCITY)
-		_play_varied(jump_sound)
 		jump_buffer_timer = 0.0
 		coyote_timer = 0.0
 	# Otherwise spend an air jump (double jump) with its own pop of feedback.
 	elif jump_buffer_timer > 0.0 and air_jumps_left > 0:
 		_do_jump(DOUBLE_JUMP_VELOCITY)
-		_play_varied(double_jump_sound)
 		trail_timer = TRAIL_DURATION   # streak out of the double jump
 		air_jumps_left -= 1
 		jump_buffer_timer = 0.0
@@ -215,7 +215,6 @@ func _handle_jump(delta):
 func _do_jump(jump_force: float):
 	velocity.y = jump_force
 	_squash_impulse(-JUMP_STRETCH)   # stretch tall on take-off
-	_spawn_dust(6)
 
 
 func _handle_horizontal(delta):
@@ -234,7 +233,6 @@ func _handle_horizontal(delta):
 		dust_cooldown -= delta
 		if dust_cooldown <= 0.0:
 			dust_cooldown = 0.2
-			_spawn_dust(3)
 
 
 # ---------------------------------------------------------------------------
@@ -244,12 +242,10 @@ func _check_landing(fall_speed: float):
 	# Just touched down this frame.
 	if is_on_floor() and not was_on_floor:
 		var impact = max(fall_speed, 0.0)  # downward speed at the moment of impact
-		_play_varied(land_sound)
 		# Squish the player on impact — harder falls flatten more, but even a soft
 		# hop gets a clear squish. The spring then bounces it back through a stretch.
 		var squish = clamp(impact / 320.0, LAND_SQUASH_MIN, LAND_SQUASH_MAX)
 		_squash_impulse(squish)
-		_spawn_dust(clamp(int(impact / 35.0), 4, 14))
 		# Only real falls shake the screen — a normal hop barely registers.
 		add_shake(clamp((impact - 120.0) / 220.0, 0.0, 2.0))
 		add_zoom_punch(clamp(impact / 1400.0, 0.0, 0.05))
@@ -261,7 +257,6 @@ func _check_landing(fall_speed: float):
 func bounce(amount: float = STOMP_BOUNCE):
 	velocity.y = amount
 	air_jumps_left = MAX_AIR_JUMPS
-	_play_varied(stomp_sound)
 	add_shake(2.5)
 	add_zoom_punch(0.10)         # snappy push-in sells the stomp
 	trail_timer = TRAIL_DURATION # streak off the bounce
@@ -277,7 +272,6 @@ func die():
 		return
 	is_dead = true
 
-	_play_varied(hurt_sound)
 	add_shake(7.0)
 	add_zoom_punch(0.18)
 	velocity = Vector2.ZERO
@@ -362,12 +356,6 @@ func _corner_correction():
 			if not test_move(global_transform.translated(shift), motion):
 				global_position.x += dir * offset
 				return
-
-
-func _spawn_dust(amount: int):
-	dust_particles.amount = max(1, amount)
-	dust_particles.restart()
-
 
 # Squash & stretch, Mario-style. A single damped spring (_update_squash) drives
 # the sprite's scale; this just "kicks" it. Positive = squash (wide & short, for
