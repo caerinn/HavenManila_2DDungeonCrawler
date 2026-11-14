@@ -11,7 +11,7 @@ Down slam - S (NOT YET ADDED)
 Attack - Right Click (NOT YET ADDED)
 
 # itch.io link
-[](caerinn.itch.io/2d-side-scrollerish)
+[Overslime!](caerinn.itch.io/2d-side-scrollerish)
 
 # Team and Credits
 ## Team
