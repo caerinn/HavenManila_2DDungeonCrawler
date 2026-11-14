@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://dfqychad0jt0b"]
+
+[ext_resource type="Script" uid="uid://3v48601yemdm" path="res://enemy/archer.gd" id="1_knv3h"]
+[ext_resource type="Texture2D" uid="uid://btvghil2ilwv5" path="res://assets/archer.png" id="1_rpy33"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3q5lw"]
+radius = 600.0
+height = 1400.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_s3x7s"]
+radius = 500.0
+height = 1000.0
+
+[node name="Archer" type="Node2D" unique_id=692269550]
+scale = Vector2(0.02, 0.02)
+script = ExtResource("1_knv3h")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1867762902]
+texture = ExtResource("1_rpy33")
+
+[node name="Collision" type="Area2D" parent="." unique_id=1032023351]
+position = Vector2(0, 100)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Collision" unique_id=1518324230]
+shape = SubResource("CapsuleShape2D_3q5lw")
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=708902546]
+position = Vector2(0, 100)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=339343498]
+position = Vector2(0, -200)
+shape = SubResource("CapsuleShape2D_s3x7s")
+
+[connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]

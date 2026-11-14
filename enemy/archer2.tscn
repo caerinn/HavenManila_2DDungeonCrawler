@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://dej3x7wnvusqa"]
+
+[ext_resource type="Texture2D" uid="uid://y185rlhnfqiy" path="res://assets/swordsman.png" id="1_vbe3a"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_r4rtl"]
+radius = 600.0
+height = 1400.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7ally"]
+radius = 500.0
+height = 1000.0
+
+[node name="Node2D" type="Node2D" unique_id=665182688]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2039203501]
+texture = ExtResource("1_vbe3a")
+
+[node name="Collision" type="Area2D" parent="." unique_id=1321590322]
+position = Vector2(0, 100)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Collision" unique_id=171569078]
+shape = SubResource("CapsuleShape2D_r4rtl")
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=1995955525]
+position = Vector2(0, 100)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=1305550784]
+position = Vector2(0, -200)
+shape = SubResource("CapsuleShape2D_7ally")

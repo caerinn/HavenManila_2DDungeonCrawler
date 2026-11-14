@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://bken7mycdti20"]
+
+[ext_resource type="Script" uid="uid://brei04o5lwlnw" path="res://minigame assets/minigame_screen.gd" id="1_ogahm"]
+[ext_resource type="Texture2D" uid="uid://b02fmsefg1kvq" path="res://assets/Screenshot From 2026-11-14 16-29-25.png" id="2_3gpcw"]
+[ext_resource type="FontFile" uid="uid://cqggeo8i8md5x" path="res://assets/fonts/PixelOperator8-Bold.ttf" id="3_10jvd"]
+
+[node name="minigameScreen" type="Node2D" unique_id=1307982199]
+script = ExtResource("1_ogahm")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=599171254]
+position = Vector2(576, 324.5)
+scale = Vector2(0.4, 0.366)
+texture = ExtResource("2_3gpcw")
+
+[node name="dialogueTimer" type="Timer" parent="." unique_id=1066457619]
+wait_time = 3.0
+autostart = true
+
+[node name="dialogueTimer2" type="Timer" parent="." unique_id=1883270077]
+wait_time = 7.0
+one_shot = true
+autostart = true
+
+[node name="minigameStart" type="Timer" parent="." unique_id=448503526]
+
+[node name="doomScreen" type="CanvasLayer" parent="." unique_id=1126337500]
+
+[node name="deathText" type="Label" parent="doomScreen" unique_id=2028222866]
+offset_top = 297.0
+offset_right = 1154.0
+offset_bottom = 350.0
+theme_override_fonts/font = ExtResource("3_10jvd")
+theme_override_font_sizes/font_size = 32
+text = "You have died..."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="timeout" from="dialogueTimer" to="." method="_on_dialogue_timer_timeout"]
+[connection signal="timeout" from="dialogueTimer2" to="." method="_on_dialogue_timer_2_timeout"]
+[connection signal="timeout" from="minigameStart" to="." method="_on_minigame_start_timeout"]

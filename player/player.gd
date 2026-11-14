@@ -103,15 +103,19 @@ const BOUNCE_SQUASH    = 0.28   # squash kick when stomping an enemy
 const SPAWN_SQUASH     = 0.22   # the pop-in at level start
 
 @onready var animated_sprite = $AnimatedSprite2D
+@onready var dust_particles  = $DustParticles
+@onready var jump_sound       = $JumpSound
+@onready var double_jump_sound = $DoubleJumpSound
+@onready var land_sound       = $LandSound
+@onready var hurt_sound       = $HurtSound
+@onready var stomp_sound      = $StompSound
 @onready var camera           = get_node_or_null("Camera2D")
 
 
 func _ready():
-	var size := get_viewport_rect().size
-	
 	add_to_group("player")
-	#if camera:
-	#	base_zoom = camera.zoom   # remember the resting zoom so punches settle back
+	if camera:
+		base_zoom = camera.zoom   # remember the resting zoom so punches settle back
 	base_sprite_y = animated_sprite.position.y
 	_squash_impulse(SPAWN_SQUASH)  # a little pop-in so the level starts with energy
 
@@ -120,7 +124,7 @@ func _physics_process(delta):
 	if is_dead:
 		return
 
-	#_apply_gravity(delta)
+	_apply_gravity(delta)
 	_handle_jump(delta)
 	_handle_horizontal(delta)
 	_update_animation()
@@ -129,7 +133,6 @@ func _physics_process(delta):
 	_corner_correction()
 
 	# Leave a fading after-image streak during the flashy moves.
-	_update_trail(delta)
 
 	# Remember floor state + fall speed, run, then react to having just landed.
 	# (move_and_slide zeroes velocity.y on impact, so we must read it first.)
@@ -216,7 +219,6 @@ func _do_jump(jump_force: float):
 	velocity.y = jump_force
 	_squash_impulse(-JUMP_STRETCH)   # stretch tall on take-off
 
-
 func _handle_horizontal(delta):
 	var direction = Input.get_axis("move_left", "move_right")
 
@@ -234,7 +236,6 @@ func _handle_horizontal(delta):
 		if dust_cooldown <= 0.0:
 			dust_cooldown = 0.2
 
-
 # ---------------------------------------------------------------------------
 #  LANDING & STOMPING
 # ---------------------------------------------------------------------------
@@ -245,7 +246,6 @@ func _check_landing(fall_speed: float):
 		# Squish the player on impact — harder falls flatten more, but even a soft
 		# hop gets a clear squish. The spring then bounces it back through a stretch.
 		var squish = clamp(impact / 320.0, LAND_SQUASH_MIN, LAND_SQUASH_MAX)
-		_squash_impulse(squish)
 		# Only real falls shake the screen — a normal hop barely registers.
 		add_shake(clamp((impact - 120.0) / 220.0, 0.0, 2.0))
 		add_zoom_punch(clamp(impact / 1400.0, 0.0, 0.05))
@@ -261,7 +261,6 @@ func bounce(amount: float = STOMP_BOUNCE):
 	add_zoom_punch(0.10)         # snappy push-in sells the stomp
 	trail_timer = TRAIL_DURATION # streak off the bounce
 	_squash_impulse(BOUNCE_SQUASH)
-
 
 # ---------------------------------------------------------------------------
 #  DEATH
@@ -295,47 +294,6 @@ func add_shake(amount: float):
 # A quick camera push-in that springs back (see _process). Bigger = punchier.
 func add_zoom_punch(amount: float):
 	zoom_punch = max(zoom_punch, amount)
-
-
-# While the trail timer is active, drop a fading ghost on a fixed cadence.
-func _update_trail(delta: float):
-	if trail_timer <= 0.0:
-		return
-	trail_timer -= delta
-	afterimage_cooldown -= delta
-	if afterimage_cooldown <= 0.0:
-		afterimage_cooldown = AFTERIMAGE_INTERVAL
-		_spawn_afterimage()
-
-
-# Snapshots the current sprite frame as a static ghost that fades out in place.
-func _spawn_afterimage():
-	var frames: SpriteFrames = animated_sprite.sprite_frames
-	if frames == null:
-		return
-	var ghost := Sprite2D.new()
-	ghost.texture = frames.get_frame_texture(animated_sprite.animation, animated_sprite.frame)
-	ghost.global_position = animated_sprite.global_position
-	ghost.flip_h = animated_sprite.flip_h
-	ghost.scale = animated_sprite.scale
-	ghost.modulate = TRAIL_COLOR
-	ghost.z_index = 4   # behind the player (z_index 5)
-
-	var scene := get_tree().current_scene
-	if scene == null:
-		return
-	scene.add_child(ghost)
-
-	var tween := ghost.create_tween()
-	tween.tween_property(ghost, "modulate:a", 0.0, 0.25)
-	tween.tween_callback(ghost.queue_free)
-
-
-# Plays a sound with a little random pitch so repeated actions never sound
-# identical — the cheapest way to kill "repetition fatigue" in the SFX.
-func _play_varied(sound: AudioStreamPlayer, low := 0.92, high := 1.09):
-	sound.pitch_scale = randf_range(low, high)
-	sound.play()
 
 
 # Ceiling corner correction: while rising, if the head is blocked but a tiny
@@ -392,6 +350,6 @@ func _update_animation():
 	if not is_on_floor():
 		animated_sprite.play("action")
 	elif abs(velocity.x) > 10.0:
-		animated_sprite.play("run")
+		animated_sprite.play("idle_walking")
 	else:
-		animated_sprite.play("walking_idle")
+		animated_sprite.play("idle_walking")
