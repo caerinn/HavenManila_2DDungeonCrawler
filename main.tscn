@@ -1,7 +1,7 @@
-[gd_scene format=3 uid="uid://h0ahtjxwp130"]
+[gd_scene format=3 uid="uid://b08q8eulkqehb"]
 
 [ext_resource type="Script" uid="uid://dyjdsxksevwje" path="res://manager.gd" id="1_0xm2m"]
-[ext_resource type="PackedScene" uid="uid://wwscqtff11s8" path="res://player/player.tscn" id="1_ig7tw"]
+[ext_resource type="PackedScene" uid="uid://bkriflqvedvyk" path="res://tile_map.tscn" id="2_0xm2m"]
 
 [node name="Main" type="Node2D" unique_id=2119281047]
 
@@ -15,6 +15,8 @@ script = ExtResource("1_0xm2m")
 offset_right = 40.0
 offset_bottom = 23.0
 
-[node name="Player" parent="." unique_id=1530552780 instance=ExtResource("1_ig7tw")]
+[node name="Player" parent="." unique_id=1530552780]
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=408227264]
+
+[node name="TileMap" parent="Player" unique_id=395212461 instance=ExtResource("2_0xm2m")]
