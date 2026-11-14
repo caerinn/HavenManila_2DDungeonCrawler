@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://bdb0ak0ytxkjf"]
+
+[ext_resource type="Script" uid="uid://ccop24llh6d0s" path="res://enemy/enemy_sword.gd" id="1_5jkba"]
+[ext_resource type="Texture2D" uid="uid://dmmiu0db58gtj" path="res://art/coffee.png" id="2_ggd8s"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_76wrm"]
+atlas = ExtResource("2_ggd8s")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ycyxe"]
+atlas = ExtResource("2_ggd8s")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_btgve"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_76wrm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ycyxe")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 4.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mfi38"]
+radius = 8.0
+
+[node name="enemySword" type="Area2D" unique_id=1546574783]
+script = ExtResource("1_5jkba")
+speed = 40.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1103940627 groups=["enemies"]]
+sprite_frames = SubResource("SpriteFrames_btgve")
+autoplay = "default"
+frame_progress = 0.8755194
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=306092148]
+position = Vector2(-2, 2)
+shape = SubResource("CircleShape2D_mfi38")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=945033969]
+rect = Rect2(-16, -16, 32, 32)
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

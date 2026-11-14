@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://b08q8eulkqehb"]
+
+[ext_resource type="PackedScene" uid="uid://dk2313qec4rf4" path="res://player/player.tscn" id="1_ig7tw"]
+
+[node name="Main" type="Node2D" unique_id=1279887179]
+
+[node name="Player" parent="." unique_id=960272342 instance=ExtResource("1_ig7tw")]
+
+[node name="SpawnTimer" type="Timer" parent="." unique_id=637350220]
+wait_time = 1.2
