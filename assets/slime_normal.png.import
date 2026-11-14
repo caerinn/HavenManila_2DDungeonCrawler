@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://br8duffyqn06t"
-path="res://.godot/imported/energy-drink.png-845001b56c2592e475785ad010be7a08.ctex"
+uid="uid://dkugx4hpkyasu"
+path="res://.godot/imported/slime_normal.png-f2a499315ab0e28c4e8e3d9eec8358b0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/energy-drink.png"
-dest_files=["res://.godot/imported/energy-drink.png-845001b56c2592e475785ad010be7a08.ctex"]
+source_file="res://assets/slime_normal.png"
+dest_files=["res://.godot/imported/slime_normal.png-f2a499315ab0e28c4e8e3d9eec8358b0.ctex"]
 
 [params]
 

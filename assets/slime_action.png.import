@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dmmc2mn0dl268"
-path="res://.godot/imported/pillow.png-41565eda306fabf3d21cd022274e48c0.ctex"
+uid="uid://dbioxuuliqroi"
+path="res://.godot/imported/slime_action.png-8215536a2b06d872caf1051056b9650c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/pillow.png"
-dest_files=["res://.godot/imported/pillow.png-41565eda306fabf3d21cd022274e48c0.ctex"]
+source_file="res://assets/slime_action.png"
+dest_files=["res://.godot/imported/slime_action.png-8215536a2b06d872caf1051056b9650c.ctex"]
 
 [params]
 

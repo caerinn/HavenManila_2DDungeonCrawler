@@ -127,8 +127,8 @@ func _apply_gravity(delta):
 # Animations
 func _update_animation():
 	if not is_on_floor():
-		animated_sprite.play("jump")
+		animatedSprite.play("jump")
 	elif abs(velocity.x) > 10.0:
-		animated_sprite.play("run")
+		animatedSprite.play("run")
 	else:
-		animated_sprite.play("idle")
+		animatedSprite.play("idle_walking")
