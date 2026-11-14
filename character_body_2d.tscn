@@ -1,0 +1,49 @@
+[gd_scene format=3 uid="uid://wwscqtff11s8"]
+
+[ext_resource type="Script" uid="uid://c16bq3tnw7n80" path="res://character_body_2d.gd" id="1_ghijl"]
+[ext_resource type="Texture2D" uid="uid://dbioxuuliqroi" path="res://assets/slime_action.png" id="1_ij6vw"]
+[ext_resource type="Texture2D" uid="uid://dkugx4hpkyasu" path="res://assets/slime_normal.png" id="2_ghijl"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_44cfe"]
+atlas = ExtResource("1_ij6vw")
+region = Rect2(0, 0, 2000, 2000)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dd465"]
+atlas = ExtResource("2_ghijl")
+region = Rect2(0, 0, 2000, 2000)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_s3x7s"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_44cfe")
+}],
+"loop": 1,
+"name": &"action",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dd465")
+}],
+"loop": 1,
+"name": &"idle_walking",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_l78km"]
+radius = 112.0
+height = 350.0
+
+[node name="Player" type="CharacterBody2D" unique_id=1530552780]
+script = ExtResource("1_ghijl")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=597331025]
+scale = Vector2(0.25, 0.25)
+sprite_frames = SubResource("SpriteFrames_s3x7s")
+animation = &"idle_walking"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=489316205]
+position = Vector2(2, 26)
+rotation = -1.5707964
+shape = SubResource("CapsuleShape2D_l78km")
