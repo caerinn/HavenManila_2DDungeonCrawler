@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://drvd60exvm7in"]
+
+[node name="Floor" type="AnimatableBody2D" unique_id=1275739128]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1260074684]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=132373462]
