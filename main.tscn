@@ -1,10 +1,24 @@
 [gd_scene format=3 uid="uid://b08q8eulkqehb"]
 
+[ext_resource type="Script" uid="uid://kevxym0wie70" path="res://main.gd" id="1_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://dk2313qec4rf4" path="res://player/player.tscn" id="1_ig7tw"]
 
 [node name="Main" type="Node2D" unique_id=1279887179]
+script = ExtResource("1_0xm2m")
+
+[node name="Node" type="Node" parent="." unique_id=349298541]
+
+[node name="HUD" type="CanvasLayer" parent="." unique_id=1736795514]
+
+[node name="Score" type="Label" parent="HUD" unique_id=605368175]
+offset_right = 40.0
+offset_bottom = 23.0
 
 [node name="Player" parent="." unique_id=960272342 instance=ExtResource("1_ig7tw")]
 
+[node name="Camera2D" type="Camera2D" parent="Player" unique_id=1770568199]
+
 [node name="SpawnTimer" type="Timer" parent="." unique_id=637350220]
 wait_time = 1.2
+
+[connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]

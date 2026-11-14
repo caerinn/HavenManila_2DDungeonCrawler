@@ -1,8 +1,43 @@
 [gd_scene format=3 uid="uid://dk2313qec4rf4"]
 
 [ext_resource type="Script" uid="uid://mtpx7p0md7xt" path="res://player/player.gd" id="1_4flbx"]
+[ext_resource type="Texture2D" uid="uid://27m7m44mw8q2" path="res://art/hero-walk-side.png" id="2_rkbax"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g1dw6"]
+atlas = ExtResource("2_rkbax")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yw30f"]
+atlas = ExtResource("2_rkbax")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qjkh3"]
+atlas = ExtResource("2_rkbax")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g6k8r"]
+atlas = ExtResource("2_rkbax")
+region = Rect2(96, 0, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_teeuw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g1dw6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yw30f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qjkh3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g6k8r")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_84cji"]
 size = Vector2(20, 27)
