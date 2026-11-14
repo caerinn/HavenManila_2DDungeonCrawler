@@ -1,10 +1,19 @@
 [gd_scene format=3 uid="uid://h0ahtjxwp130"]
 
+[ext_resource type="Script" uid="uid://dyjdsxksevwje" path="res://manager.gd" id="1_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://wwscqtff11s8" path="res://player/player.tscn" id="1_ig7tw"]
 
 [node name="Main" type="Node2D" unique_id=2119281047]
 
-[node name="Node" type="Node" parent="." unique_id=1071216954]
+[node name="manager" type="Node" parent="." unique_id=1071216954]
+unique_name_in_owner = true
+script = ExtResource("1_0xm2m")
+
+[node name="HUD" type="CanvasLayer" parent="." unique_id=576236637]
+
+[node name="scoreLabel" type="Label" parent="HUD" unique_id=921055410]
+offset_right = 40.0
+offset_bottom = 23.0
 
 [node name="Player" parent="." unique_id=1530552780 instance=ExtResource("1_ig7tw")]
 

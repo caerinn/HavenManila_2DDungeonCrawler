@@ -32,18 +32,18 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_l78km"]
-radius = 112.0
-height = 350.0
+radius = 56.0
+height = 176.0
 
 [node name="Player" type="CharacterBody2D" unique_id=1530552780]
 script = ExtResource("1_4flbx")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=597331025]
-scale = Vector2(0.25, 0.25)
+scale = Vector2(0.1, 0.1)
 sprite_frames = SubResource("SpriteFrames_s3x7s")
 animation = &"idle_walking"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=489316205]
-position = Vector2(2, 26)
+position = Vector2(-1, 4)
 rotation = -1.5707964
 shape = SubResource("CapsuleShape2D_l78km")
